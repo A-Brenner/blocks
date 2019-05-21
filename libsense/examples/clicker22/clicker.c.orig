@@ -1,0 +1,14 @@
+#include "sense.h"
+#include <stdio.h>
+
+int run=1;
+void zero(unsigned int code) { run=!run; printf("no\n"); }
+void one(unsigned int code) { run=!run; printf("yes\n"); }
+
+int main(void) {
+    pi_joystick_t* joystick=getJoystickDevice();
+    while(run){ pollJoystick(joystick,one,100); }
+    while(!run){ pollJoystick(joystick,zero,100); }
+    freeJoystick(joystick);
+    printf("done\n");
+}
